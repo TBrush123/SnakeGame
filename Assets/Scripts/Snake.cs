@@ -5,22 +5,27 @@ using UnityEngine.EventSystems;
 public class Snake : MonoBehaviour
 {
     [SerializeField] private int initialSize;
-    [SerializeField] private int size;
-    [SerializeField] private Transform grid;
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private GameInput gameInput;
-    
-    
-    private Vector2Int snakeHead;
-    private List<Vector2Int> snakeBody;
-    
-    public Vector2 moveDirection { get; set; }
-    
-    private void Update()
+    [SerializeField] private SnakeBodyManager snakeBodyManager;
+    [SerializeField] private Transform bodyPrefab;
+
+    private void Start()
     {
-        Vector2 movementVectorNormalized = gameInput.GetMovementVectorNormalized();
-        rb.MovePosition(rb.position + movementVectorNormalized * (5f * Time.deltaTime));
+        snakeBodyManager.OnSnakeMove += Move;
     }
-    
-    
+
+    private void Move()
+    {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Vector2Int cell in snakeBodyManager.SnakeBodyCells)
+        {
+            Vector3 newCell = new Vector3(cell.x, cell.y, -0.1f);
+            Transform newChild = Instantiate(bodyPrefab, transform);
+            newChild.transform.localPosition = newCell;
+        }
+    }
 }

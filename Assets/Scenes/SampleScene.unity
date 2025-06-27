@@ -461,6 +461,7 @@ MonoBehaviour:
   size: 0
   grid: {fileID: 1958454080}
   rb: {fileID: 1313190017}
+  gameInput: {fileID: 2141201804}
 --- !u!50 &1313190017
 Rigidbody2D:
   serializedVersion: 5
@@ -564,7 +565,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976067abb01ce27419120c254253aae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snake: {fileID: 1313190016}
 --- !u!4 &2141201805
 Transform:
   m_ObjectHideFlags: 0

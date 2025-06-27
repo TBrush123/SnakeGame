@@ -3,18 +3,15 @@ using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
-    private SnakeInputActions snakeInputActions;
+    private Vector2Int moveDirection = Vector2Int.zero;
     
-    private void Start()
+    public Vector2Int GetMovementVector()
     {
-        snakeInputActions = new SnakeInputActions();
-        snakeInputActions.Snake.Enable();
-    }
-
-    public Vector2 GetMovementVectorNormalized()
-    {
-        Vector2 inputVector = snakeInputActions.Snake.Move.ReadValue<Vector2>();
-        Debug.Log(inputVector);
-        return inputVector.normalized; 
+        if (Input.GetKey(KeyCode.W)) moveDirection = Vector2Int.up;
+        if (Input.GetKey(KeyCode.A)) moveDirection = Vector2Int.left;
+        if (Input.GetKey(KeyCode.S)) moveDirection = Vector2Int.down;
+        if (Input.GetKey(KeyCode.D)) moveDirection = Vector2Int.right;
+        
+        return moveDirection; 
     }
 }
