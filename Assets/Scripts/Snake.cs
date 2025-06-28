@@ -8,6 +8,7 @@ public class Snake : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SnakeBodyManager snakeBodyManager;
     [SerializeField] private Transform bodyPrefab;
+    [SerializeField] private GridScript grid;
 
     private void Start()
     {
@@ -21,11 +22,10 @@ public class Snake : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (Vector2Int cell in snakeBodyManager.SnakeBodyCells)
+        foreach (Vector3Int cell in snakeBodyManager.SnakeBodyCells)
         {
-            Vector3 newCell = new Vector3(cell.x, cell.y, -0.1f);
-            Transform newChild = Instantiate(bodyPrefab, transform);
-            newChild.transform.localPosition = newCell;
+            Vector3 bodyPosition = grid.cells[cell].position;
+            Transform newChild = Instantiate(bodyPrefab, bodyPosition, Quaternion.identity);
         }
     }
 }
